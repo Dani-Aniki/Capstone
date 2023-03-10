@@ -8,6 +8,8 @@ import mediapipe as mp
 
 
 # %%
+
+
 mp_holistic = mp.solutions.holistic # Holistic model
 mp_drawing = mp.solutions.drawing_utils # Drawing utilities
 
