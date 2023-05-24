@@ -8,11 +8,6 @@ import mediapipe as mp
 import pyttsx3
 from tensorflow.keras.models import load_model
 
-# %%
-engine = pyttsx3.init()
-engine.setProperty("voice", "spanish")
-engine.say("Hola")
-engine.runAndWait()
 
 # %%
 mp_holistic = mp.solutions.holistic # Holistic model
@@ -58,6 +53,7 @@ def draw_styled_landmarks(image, results):
                              mp_drawing.DrawingSpec(color=(245,66,230), thickness=2, circle_radius=2)
                              ) 
     
+'''
 # %%
 cap = cv2.VideoCapture(0)
 # Set mediapipe model 
@@ -100,7 +96,7 @@ for res in results.pose_landmarks.landmark:
     test = np.array([res.x, res.y, res.z, res.visibility])
     pose.append(test)
 
-
+'''
 # %%
 def extract_keypoints(results):
     pose = np.array([[res.x, res.y, res.z, res.visibility] for res in results.pose_landmarks.landmark]).flatten() if results.pose_landmarks else np.zeros(33*4)
@@ -109,6 +105,7 @@ def extract_keypoints(results):
     rh = np.array([[res.x, res.y, res.z] for res in results.right_hand_landmarks.landmark]).flatten() if results.right_hand_landmarks else np.zeros(21*3)
     return np.concatenate([pose, lh, rh])
 
+'''
 # %%
 result_test = extract_keypoints(results)
 
@@ -121,7 +118,7 @@ np.save('0', result_test)
 
 # %%
 np.load('0.npy')
-
+'''
 # %%
 # Path for exported data, numpy arrays
 DATA_PATH = os.path.join('MP_Data') 
@@ -135,7 +132,7 @@ no_sequences = 30
 # Videos are going to be 30 frames in length
 sequence_length = 30
 
-
+'''
 # %%
 for action in actions: 
     print(actions)
@@ -148,8 +145,11 @@ for action in actions:
             os.makedirs(os.path.join(DATA_PATH, action, str(dirmax+sequence)))
         except:
             pass
+'''
 
 
+
+#ESTO ES PARA RECOGER LOS DATOS
 # %%
 cap = cv2.VideoCapture(0)
 # Set mediapipe model 
@@ -246,6 +246,8 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import LSTM, Dense
 from tensorflow.keras.callbacks import TensorBoard
 
+#AQUÏ SI YA TIENES EL MODELO HECHO SOLO EJECUTAS EL LOAD_MODEL
+
 # %%
 log_dir = os.path.join('Logs')
 tb_callback = TensorBoard(log_dir=log_dir)
@@ -265,6 +267,7 @@ model.fit(X_train, y_train, epochs=2000, callbacks=[tb_callback])
 model.summary()
 model.save("model")
 
+#ESTOOOOOOO
 # %% 
 model = load_model("model")
 
@@ -286,7 +289,7 @@ yhat = np.argmax(yhat, axis=1).tolist()
 multilabel_confusion_matrix(ytrue, yhat)
 accuracy_score(ytrue, yhat)
 
-
+'''
 # %%
 colors = [(245,117,16), (117,245,16), (16,117,245)]
 def prob_viz(res, actions, input_frame, colors):
@@ -300,6 +303,7 @@ def prob_viz(res, actions, input_frame, colors):
 # %%
 plt.figure(figsize=(18,18))
 plt.imshow(prob_viz(res, actions, image, colors))
+'''
 
 # %%
 # 1. New detection variables
