@@ -52,7 +52,10 @@ def draw_styled_landmarks(image, results):
                              mp_drawing.DrawingSpec(color=(245,117,66), thickness=2, circle_radius=4), 
                              mp_drawing.DrawingSpec(color=(245,66,230), thickness=2, circle_radius=2)
                              ) 
-    
+
+# %%
+
+
 '''
 # %%
 cap = cv2.VideoCapture(0)
@@ -80,7 +83,7 @@ with mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=
     cv2.destroyAllWindows()
 
 
-# %%
+q# %%
 draw_landmarks(frame, results)
 
 # %%
@@ -105,6 +108,7 @@ def extract_keypoints(results):
     rh = np.array([[res.x, res.y, res.z] for res in results.right_hand_landmarks.landmark]).flatten() if results.right_hand_landmarks else np.zeros(21*3)
     return np.concatenate([pose, lh, rh])
 
+# %%
 '''
 # %%
 result_test = extract_keypoints(results)
@@ -132,6 +136,7 @@ no_sequences = 30
 # Videos are going to be 30 frames in length
 sequence_length = 30
 
+# %%
 '''
 # %%
 for action in actions: 
@@ -273,10 +278,11 @@ model = load_model("model")
 
 
 # %%
+'''
 res = model.predict(X_test)
 actions[np.argmax(res[1])]
 actions[np.argmax(y_test[1])]
-
+'''
 
 
 
@@ -289,6 +295,7 @@ yhat = np.argmax(yhat, axis=1).tolist()
 multilabel_confusion_matrix(ytrue, yhat)
 accuracy_score(ytrue, yhat)
 
+# %%
 '''
 # %%
 colors = [(245,117,16), (117,245,16), (16,117,245)]
